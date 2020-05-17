@@ -4,6 +4,18 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <!-- <ion-title>visMap</ion-title>     -->
+    <ion-searchbar
+      placeholder="Search for a place"
+      (search)="searchPlaces($event.target.value)"
+      animated
+    ></ion-searchbar>
+    <ion-buttons slot="end" class="ion-padding">
+      <ion-icon
+        slot="icon-only"
+        name="locate-outline"
+        (click)="locateUser()"
+      ></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
