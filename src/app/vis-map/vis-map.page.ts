@@ -9,7 +9,11 @@ import {
   Marker,
   LocationService,
   MyLocation,
+  GoogleMapOptions,
+  GoogleMapsEvent,
 } from '@ionic-native/google-maps/ngx';
+import { throttle } from 'rxjs/operators';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-vis-map',
@@ -18,7 +22,11 @@ import {
 })
 // tslint:disable-next-line: component-class-suffix
 export class VisMapPage implements OnInit {
-  map: GoogleMap;
+  private map: GoogleMap;
+  private ionColorPrimary = '#488aff';
+  private dummyMarker: any;
+  private mapDragMode = false;
+  private centerPos: any;
 
   constructor(
     private platform: Platform,
@@ -31,13 +39,78 @@ export class VisMapPage implements OnInit {
     await this.loadMap();
   }
 
+  ionViewDidLoad() {
+    this.dummyMarker = document.getElementById('centerMarkerImage');
+    this.dummyMarker.style.display = 'none';
+  }
+
   loadMap() {
     Environment.setEnv({
       API_KEY_FOR_BROWSER_RELEASE: 'AIzaSyC8XkQMd1i4AEmMYVUEi_g-sZAgc1d8WXE',
       API_KEY_FOR_BROWSER_DEBUG: 'AIzaSyC8XkQMd1i4AEmMYVUEi_g-sZAgc1d8WXE',
     });
 
-    this.map = GoogleMaps.create('map_canvas');
+    const bigBenCoords = {
+      lat: 51.50072919999999,
+      lng: -0.1246254,
+    };
+
+    const mapOptions: GoogleMapOptions = {
+      controls: {
+        myLocationButton: true,
+      },
+      camera: {
+        target: bigBenCoords,
+        zoom: 15,
+      },
+      center: bigBenCoords,
+    };
+
+    this.map = GoogleMaps.create('map_canvas', mapOptions);
+
+    // this.map
+    //   .on(GoogleMapsEvent.CAMERA_MOVE)
+    //   .pipe(throttle((val) => interval(500)))
+    //   .subscribe((data) => console.log(data[0].target));
+
+    // this.map
+    //   .addEventListener(GoogleMapsEvent.MAP_DRAG_END)
+    //   .pipe(throttle((val) => interval(500)))
+    //   .subscribe((data) => {
+    //     console.log(this.map.getCameraPosition().target);
+    //   });
+
+    // this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+    //   const marker: Marker = this.map.addMarkerSync({
+    //     icon: this.ionColorPrimary,
+    //     position: bigBenCoords,
+    //     map: this.map,
+    //   });
+
+    //   this.map
+    //     .addEventListener(GoogleMapsEvent.CAMERA_MOVE)
+    //     .pipe(throttle((val) => interval(500)))
+    //     .subscribe((data) => {
+    //       // console.log(this.map.getCameraPosition());
+    //       marker.setPosition(data.target);
+    //     });
+
+    //   this.map
+    //     .addEventListener(GoogleMapsEvent.CAMERA_MOVE_END)
+    //     .pipe(throttle((val) => interval(500)))
+    //     .subscribe((data) => {
+    //       // console.log(this.map.getCameraPosition());
+    //       marker.setPosition(data.target);
+    //     });
+
+    //   this.map
+    //     .addEventListener(GoogleMapsEvent.MAP_DRAG)
+    //     .pipe(throttle((val) => interval(500)))
+    //     .subscribe((data) => {
+    //       // console.log(this.map.getCameraPosition());
+    //       marker.setPosition(data.target);
+    //     });
+    // });
   }
 
   async searchPlaces(searchString: string) {
@@ -56,16 +129,16 @@ export class VisMapPage implements OnInit {
       loading.dismiss();
 
       if (results.length > 0) {
-        const marker: Marker = this.map.addMarkerSync({
-          position: results[0].position,
-          // title: 'abc',
-        });
+        // const marker: Marker = this.map.addMarkerSync({
+        //   position: results[0].position,
+        //   // title: 'abc',
+        //   icon: ionColorPrimary
+        // });
         this.map.animateCamera({
-          target: marker.getPosition(),
-          zoom: 17,
-          // zoom: 10
+          // target: marker.getPosition(),
+          target: results[0].position,
+          zoom: 15,
         });
-        marker.showInfoWindow();
       } else {
         alert('Place not found. Please try another search term.');
       }
@@ -86,17 +159,21 @@ export class VisMapPage implements OnInit {
       loading.dismiss();
 
       if (myLocation) {
-        const marker: Marker = this.map.addMarkerSync({
-          position: myLocation.latLng,
-          // title: 'abc',
-        });
+        // const marker: Marker = this.map.addMarkerSync({
+        //   position: myLocation.latLng,
+        //   // title: 'abc',
+        // });
         this.map.animateCamera({
-          target: marker.getPosition(),
+          // target: marker.getPosition(),
+          target: myLocation.latLng,
           zoom: 17,
           // zoom: 10
         });
-        // marker.showInfoWindow();
       }
     });
+  }
+
+  goToVisImagePage() {
+    console.log(this.map.getCameraPosition().target);
   }
 }

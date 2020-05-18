@@ -1,3 +1,6 @@
+<!-- center icon instructions
+https://forum.ionicframework.com/t/in-ionic-naitve-google-map-how-to-keep-marker-in-center-when-i-drag-map-or-on-camera-move-start-like-uber-do-or-careem/143573/2 -->
+
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -20,5 +23,25 @@
 </ion-header>
 
 <ion-content class="ion-no-padding">
-  <div id="map_canvas"></div>
+  <div id="map_canvas">
+    <img src="assets/marker.png" alt="" id="centerMarkerImage" />
+  </div>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="8" offset="2">
+        <ion-button
+          expand="block"
+          color="tertiary"
+          (click)="goToVisImagePage()"
+        >
+          <ion-icon
+            slot="start"
+            [ios]="'images-outline'"
+            [md]="'images-sharp'"
+          ></ion-icon
+          >Visualize</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

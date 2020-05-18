@@ -10,4 +10,26 @@ ion-menu-button {
 #map_canvas {
   width: 100%;
   min-height: 100%;
+  position: relative;
+}
+
+#centerMarkerImage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom:0;
+  margin: auto;
+  width: 32px; // image width
+  // height: 24px; // image height
+  height: 41px; // image height
+  z-index: 1;
+}
+
+ion-button {
+  z-index: 1;
+  position: fixed;
+  left: 15vw;
+  right: 15vw;
+  bottom: 5vh;
 }
