@@ -1,7 +1,7 @@
 # visualize-maps-v1
 
 This mini-project was abandoned after experiencing first-hand some limitations of the <a target="_blank" href="https://github.com/ionic-team/ionic-native-google-maps">@ionic-native/google-maps</a> plugin (lack of searchbar and autocomplete features, minimal integration with the Places API, lack of satellite view, to name a few lacking features).
-This mini-project will be restarted using the <a target="_blank" href="https://developers.google.com/maps/documentation/javascript/">Google Maps JavaScript SDK</a> instead.<br><br>
+This mini-project will be restarted using either the <a target="_blank" href="https://developers.google.com/maps/documentation/javascript/">Google Maps JavaScript SDK</a> or the <a target="_blank" href="https://angular-maps.com/api-docs/agm-core/index.html">@agm/core</a> package instead.<br><br>
 
 Insert your own Google Maps API key in the following files:<br>
 - config.xml<br>
