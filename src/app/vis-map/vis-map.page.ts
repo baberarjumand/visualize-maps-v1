@@ -174,6 +174,7 @@ export class VisMapPage implements OnInit {
   }
 
   goToVisImagePage() {
-    console.log(this.map.getCameraPosition().target);
+    // console.log(this.map.getCameraPosition().target);
+    alert(JSON.stringify(this.map.getCameraPosition().target) + '\nThis feature is not yet implemented');
   }
 }
