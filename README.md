@@ -22,3 +22,6 @@ To run this project in the browser (after installing the dependencies using <cod
 
 Then in the browser, the web app will be locally served at:<br>
 <code>localhost:8100/index.html</code>
+<br><br>
+## UPDATE
+Version 2 of this app can be found here: [https://github.com/baberarjumand/visualize-maps-v2](https://github.com/baberarjumand/visualize-maps-v2).
